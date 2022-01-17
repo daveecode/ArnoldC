@@ -1,3 +1,7 @@
 lex.yy.cc
 arnold
 *.out
+*.tab.*
+location.hh
+position.hh
+stack.hh

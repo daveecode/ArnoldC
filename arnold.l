@@ -1,8 +1,13 @@
-%option noyywrap c++ yylineno
+%option c++ noyywrap yylineno
 
 %{
 #include <iostream>
-#include <fstream>
+#include <cstdlib>
+#include <list>
+#include "implementation.hh"
+#include "arnold.tab.hh"
+
+using namespace yy;
 %}
 
 WS [ \t\n]
@@ -13,44 +18,44 @@ NUMBER_LITERAL [0-9]+
 
 %%
 
-"IT'S SHOWTIME"    std::cout << "kulcsszo: " << YYText() << " - program kezdete" << std::endl;
-"YOU HAVE BEEN TERMINATED"    std::cout << "kulcsszo: " << YYText() << " - program vege" << std::endl;
-"TALK TO THE HAND"   std::cout << "print kulcsszo: " << YYText() << std::endl;
-"I WANT TO ASK YOU A BUNCH OF QUESTIONS AND I WANT TO HAVE THEM ANSWERED IMMEDIATELY"   std::cout << "valtozo bekeres: " << YYText() << std::endl;
-"HEY CHRISTMAS TREE"   std::cout << "kulcsszo: " << YYText() << " - valtozo deklaralas" << std::endl;
-"YOU SET US UP"   std::cout << "kezdeti ertekadas: " << YYText() << std::endl;
-"@I LIED"    std::cout << "hamis: " << YYText() << std::endl;
-"@NO PROBLEMO"   std::cout << "igaz: " << YYText() << std::endl;
-"GET TO THE CHOPPER"   std::cout << "ertekadas: " << YYText() << std::endl;
-"HERE IS MY INVITATION"  std::cout << "operandusok: " << YYText() << std::endl;
-"ENOUGH TALK"    std::cout << "ertekadas vege: " << YYText() << std::endl;
-"GET UP"    std::cout << "plusz: " << YYText() << std::endl;
-"GET DOWN"    std::cout << "minusz: " << YYText() << std::endl;
-"YOU'RE FIRED"  std::cout << "szorzas: " << YYText() << std::endl;
-"HE HAD TO SPLIT"   std::cout << "osztas: " << YYText() << std::endl;
-"I LET HIM GO"   std::cout << "modulo: " << YYText() << std::endl;
-"YOU ARE NOT YOU YOU ARE ME"   std::cout << "==: " << YYText() << std::endl;
-"LET OFF SOME STEAM BENNET"    std::cout << ">: " << YYText() << std::endl;
-"CONSIDER THAT A DIVORCE"     std::cout << "or kulcsszo: " << YYText() << std::endl;
-"KNOCK KNOCK"    std::cout << "and kulcsszo: " << YYText() << std::endl;
-"BECAUSE I'M GOING TO SAY PLEASE"    std::cout << "if kulcsszo: " << YYText() << std::endl;
-"BULLSHIT"   std::cout << "else kulcsszo: " << YYText() << std::endl;
-"YOU HAVE NO RESPECT FOR LOGIC"   std::cout << "if vege kulcsszo: " << YYText() << std::endl;
-"STICK AROUND"   std::cout << "while ciklus kezdete: " << YYText() << std::endl;
-"CHILL"   std::cout << "while ciklus vege: " << YYText() << std::endl;
-"LISTEN TO ME VERY CAREFULLY"   std::cout << "metodus deklaralas: " << YYText() << std::endl;
-"HASTA LA VISTA, BABY"   std::cout << "metodus vege: " << YYText() << std::endl;
-"I NEED YOUR CLOTHES YOUR BOOTS AND YOUR MOTORCYCLE"   std::cout << "metodus argumentum: " << YYText() << std::endl;
-"GIVE THESE PEOPLE AIR"   std::cout << "non-void metodus: " << YYText() << std::endl;
-"I'LL BE BACK"   std::cout << "return kulcsszo: " << YYText() << std::endl;
-"DO IT NOW"   std::cout << "metodus hivasa: " << YYText() << std::endl;
-"GET YOUR ASS TO MARS"   std::cout << "metodus eredmenye valtozoba: " << YYText() << std::endl;
-"WHAT THE FUCK DID I DO WRONG"   std::cout << "Hiba kulcsszo: " << YYText() << std::endl;
-{WS}    std::cout << "whitespace: " << YYText() << std::endl;
-{COMMENT} std::cout << "megjegyzes: " << YYText() << std::endl;
-{NUMBER_LITERAL}    std::cout << "szam literal: " << YYText() << std::endl;
-{STRING_LITERAL}    std::cout << "string literal: " << YYText() << std::endl;
-{VARIABLE}   std::cout << "valtozo: " << YYText() << std::endl;
+"IT'S SHOWTIME"                 return parser::token::START;
+"YOU HAVE BEEN TERMINATED"      return parser::token::END;
+"TALK TO THE HAND"              return parser::token::PRINT;
+"I WANT TO ASK YOU A BUNCH OF QUESTIONS AND I WANT TO HAVE THEM ANSWERED IMMEDIATELY"   return parser::token::IN;
+"HEY CHRISTMAS TREE"   return parser::token::DECLARE;
+"YOU SET US UP"   return parser::token::DEFAULT;
+"@I LIED"    return parser::token::TRUE;
+"@NO PROBLEMO"   return parser::token::FALSE;
+"GET TO THE CHOPPER"   return parser::token::ASSIGN;
+"HERE IS MY INVITATION"  return parser::token::OP;
+"ENOUGH TALK"    return parser::token::ASSIGN_END;
+"GET UP"    return parser::token::PLUS;
+"GET DOWN"    return parser::token::MINUS;
+"YOU'RE FIRED"  return parser::token::MUL;
+"HE HAD TO SPLIT"   return parser::token::DIV;
+"I LET HIM GO"   return parser::token::MOD;
+"YOU ARE NOT YOU YOU ARE ME"   return parser::token::EQUAL;
+"LET OFF SOME STEAM BENNET"    return parser::token::GREATER;
+"CONSIDER THAT A DIVORCE"     return parser::token::OR;
+"KNOCK KNOCK"    return parser::token::AND;
+"BECAUSE I'M GOING TO SAY PLEASE"    return parser::token::IF;
+"BULLSHIT"   return parser::token::ELSE;
+"YOU HAVE NO RESPECT FOR LOGIC"   return parser::token::ENDIF;
+"STICK AROUND"   return parser::token::WHILE;
+"CHILL"   return parser::token::DONE;
+"LISTEN TO ME VERY CAREFULLY"   return parser::token::FUNC;
+"HASTA LA VISTA, BABY"   return parser::token::FUNC_END;
+"I NEED YOUR CLOTHES YOUR BOOTS AND YOUR MOTORCYCLE"   return parser::token::ARG;
+"GIVE THESE PEOPLE AIR"   return parser::token::NON_VOID;
+"I'LL BE BACK"   return parser::token::RETURN;
+"DO IT NOW"   return parser::token::CALL;
+"GET YOUR ASS TO MARS"   return parser::token::CALL_TO_VAR;
+"WHAT THE FUCK DID I DO WRONG"   return parser::token::ERROR;
+{WS}    //skipped
+{COMMENT} //skipped
+{NUMBER_LITERAL}    return parser::token::NUM;
+{STRING_LITERAL}    return parser::token::STRING;
+{VARIABLE}   return parser::token::VAR;
 .       {
             std::cerr << lineno() << ": Lexikalis hiba." << YYText() << std::endl;
             exit(1);
