@@ -24,7 +24,25 @@ void yy::parser::error(const location_type& loc, const std::string& msg) {
 
 int main( int argc, char* argv[] )
 {
-    std::ifstream input(argv[1]);
+    if(argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " (-c|-i) inputfile" << std::endl;
+        exit(1);
+    }
+    
+    if(std::string(argv[1]) == "-c") {
+        current_mode = compiler;
+    } else if(std::string(argv[1]) == "-i") {
+        current_mode = interpreter;
+    } else {
+        std::cerr << "Usage: " << argv[0] << "(-c|-i) inputfile" << std::endl;
+        exit(1);
+    }
+    std::ifstream input(argv[2]);
+    if(!input) {
+        std::cerr << "Cannot open input file: " << argv[2] << std::endl;
+        exit(1);
+    }
+
     lexer = new yyFlexLexer(&input);
     yy::parser parser;
     parser.parse();

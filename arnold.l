@@ -24,8 +24,8 @@ NUMBER_LITERAL [0-9]+
 "I WANT TO ASK YOU A BUNCH OF QUESTIONS AND I WANT TO HAVE THEM ANSWERED IMMEDIATELY"   return parser::token::IN;
 "HEY CHRISTMAS TREE"   return parser::token::DECLARE;
 "YOU SET US UP"   return parser::token::DEFAULT;
-"@I LIED"    return parser::token::TRUE;
-"@NO PROBLEMO"   return parser::token::FALSE;
+"@I LIED"    return parser::token::FALSE;
+"@NO PROBLEMO"   return parser::token::TRUE;
 "GET TO THE CHOPPER"   return parser::token::ASSIGN;
 "HERE IS MY INVITATION"  return parser::token::OP;
 "ENOUGH TALK"    return parser::token::ASSIGN_END;

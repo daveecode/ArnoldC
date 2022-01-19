@@ -31,22 +31,28 @@ id_expression::id_expression(int _line, std::string _name)
     : line(_line), name(_name)
 {}
 
-binop_expression::~binop_expression() {
+expression* last;
+
+op_expression::~op_expression() {
     delete left;
     delete right;
 }
 
-binop_expression::binop_expression(int _line, std::string _op, expression* _left, expression* _right)
+op_expression::op_expression(int _line, std::string _op, expression* _left, expression* _right)
     : line(_line), op(_op), left(_left), right(_right)
 {}
 
-not_expression::~not_expression() {
+/* func_expression::func_expression(int _line, std::string _name, std::string _func_type, std::list<expression*>* _args, std::list<instruction*>* _body)
+    : line(_line), name(_name), func_type(_func_type), args(_args), body(_body)
+{} */
+
+/* not_expression::~not_expression() {
     delete operand;
 }
 
 not_expression::not_expression(int _line, std::string _op, expression* _operand)
     : line(_line), op(_op), operand(_operand)
-{}
+{} */
 
 instruction::instruction(int _line)
     : line(_line)
@@ -92,6 +98,10 @@ if_instruction::~if_instruction() {
 while_instruction::while_instruction(int _line, expression* _condition, std::list<instruction*>* _body)
     : instruction(_line), condition(_condition), body(_body)
 {}
+/* 
+func_instruction::func_instruction(int _line, std::list<expression*>* _args, std::list<instruction*>* _body)
+    : instruction(_line), args(_args), body(_body)
+{} */
 
 while_instruction::~while_instruction() {
     delete condition;
