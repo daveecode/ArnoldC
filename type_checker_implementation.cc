@@ -12,6 +12,10 @@ type boolean_expression::get_type() const {
     return boolean;
 }
 
+type str_expression::get_type() const {
+    return str;
+}
+
 void symbol::declare() {
     if(symbol_table.count(name) > 0) {
         error(line, std::string("Re-declared variable: ") + name);
@@ -75,8 +79,8 @@ void read_instruction::type_check() {
 }
 
 void write_instruction::type_check() {
-    std::cout << "exp_type: " << exp_type << std::endl;
     exp_type = exp->get_type();
+    //std::cout << "exp_type: " << exp_type << std::endl;
 }
 
 void if_instruction::type_check() {

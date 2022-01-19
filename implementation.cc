@@ -21,6 +21,10 @@ boolean_expression::boolean_expression(bool _value) {
     value = _value;
 }
 
+str_expression::str_expression(std::string _value) {
+    value = _value;
+}
+
 long id = 0;
 
 symbol::symbol(int _line, std::string _name, type _type) : line(_line), name(_name), symbol_type(_type) {

@@ -5,6 +5,10 @@ void write_natural(unsigned n) {
     printf("%u\n", n);
 }
 
+void write_str(char z[100]) {
+    printf("%s\n", z);
+}
+
 unsigned read_natural() {
     unsigned ret;
     scanf("%u", &ret);

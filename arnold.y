@@ -255,6 +255,6 @@ variable:
 |
     STRING
     {
-        std::cout << "variable -> STRING" << std::endl;
+        $$ = new str_expression($1);
     }
 ;

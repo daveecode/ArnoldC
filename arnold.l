@@ -54,7 +54,7 @@ NUMBER_LITERAL [0-9]+
 {WS}    //skipped
 {COMMENT} //skipped
 {NUMBER_LITERAL}    return parser::token::NUM;
-{STRING_LITERAL}    return parser::token::STRING;
+{STRING_LITERAL}    return parser::token::STRING; //std::cout << lineno() << ": " << YYText() << std::endl;;
 {VARIABLE}   return parser::token::VAR;
 .       {
             std::cerr << lineno() << ": Lexikalis hiba." << YYText() << std::endl;

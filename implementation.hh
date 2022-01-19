@@ -9,7 +9,7 @@ enum mode {compiler, interpreter};
 
 extern mode current_mode;
 
-enum type {boolean, natural, none};
+enum type {boolean, natural, str};
 
 void error(int line, std::string text);
 
@@ -39,6 +39,17 @@ class boolean_expression : public expression {
     unsigned get_value() const;    
   private:
     bool value;
+};
+
+class str_expression : public expression {
+  public:
+    str_expression(std::string _value);  
+    type get_type() const;
+    std::string get_code() const;
+    unsigned get_value() const;
+    std::string get_v() const;    
+  private:
+    std::string value;
 };
 
 extern long id;

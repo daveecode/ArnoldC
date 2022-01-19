@@ -12,6 +12,14 @@ unsigned boolean_expression::get_value() const {
     return (unsigned)value;
 }
 
+unsigned str_expression::get_value() const {
+    return (unsigned)0;
+}
+
+std::string str_expression::get_v() const {
+    return value;
+}
+
 unsigned id_expression::get_value() const {
     return value_table[name];
 }
@@ -78,6 +86,9 @@ void write_instruction::execute() {
         } else {
             std::cout << "false" << std::endl;
         }
+    } else if(exp_type == str) {
+        str_expression* mystr = dynamic_cast<str_expression*>(exp);
+        std::cout << mystr->get_v() << std::endl;
     }
 }
 
