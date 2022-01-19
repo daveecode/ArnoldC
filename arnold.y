@@ -73,33 +73,22 @@ statement:
 |
     ASSIGN VAR operands ASSIGN_END
     {
-        //std::cout << "statement -> ASSIGN VAR OP variable operands ASSIGN_END" << std::endl;
-        //std::list<expression*>::iterator it;
-        /* for(it = $3->begin(); it != $3->end(); ++it) {
-            std::cout << "listaban: ";
-            std::cout << (*it)->get_value() << std::endl;
-        } */
-        //symbol(@2.begin.line, $2, $3->back()->get_type()).declare();
         std::cout << "last: " << $3->back()->get_value() << std::endl;
-
         $$ = new assign_instruction(@1.begin.line, $2, $3->back());
     }
 |
     IF variable statements ENDIF
     {
-        //std::cout << "statement -> IF variable statements ENDIF" << std::endl;
         $$ = new if_instruction(@1.begin.line, $2, $3, 0);
     }
 |
     IF variable statements ELSE statements ENDIF
     {
-        //std::cout << "statement -> IF variable statements ELSE statements ENDIF" << std::endl;
         $$ = new if_instruction(@1.begin.line, $2, $3, $5);
     }
 |
     WHILE variable statements DONE
     {
-        //std::cout << "statement -> WHILE variable statements DONE" << std::endl;
         $$ = new while_instruction(@1.begin.line, $2, $3);
     }
 |
@@ -131,23 +120,18 @@ func:
 |
     FUNC VAR args type statements FUNC_END
     {
-        //std::cout << "func -> FUNC VAR args type statements FUNC_END" << std::endl;
-        //itt inicializaljuk a fuggvenyt
+        std::cout << "func -> FUNC VAR args type statements FUNC_END" << std::endl;
     }
 ;
 
 args:
     {
         std::cout << "no more args" << std::endl;
-        //$$ = new std::list<expression*>();
 
     }
 |
     args ARG VAR
     {
-        /* $$ = new id_expression($3);
-        $1->push_back($$);
-        $$ = $1; */
         std::cout << "args -> args VAR" << std::endl;
     }
 ;
@@ -166,19 +150,16 @@ params:
 type:
     {
         std::cout << "void type" << std::endl;
-        //$$ = "void"
     }
 |
     NON_VOID
     {
         std::cout << "type -> NON_VOID" << std::endl;
-        //$$ = "non_void"
     }
 ;
 
 operands:
     {
-        //std::cout << "operands -> empty" << std::endl;
         $$ = new std::list<expression*>();
     }
 |
@@ -192,24 +173,18 @@ operands:
 operand:
     OP variable
     {
-        //std::cout << "eljut: HERE IS MY INVITATION" << std::endl;
         last = $2;
-        //std::cout << "ketto kozt: " << $2->get_value() << std::endl;
         $$ = last;
-        //std::cout << "after HERE IS MY INVITATION: " << $$->get_value() << std::endl;
     }
 |
     PLUS variable
     {
-        //std::cout << "last: " << last->get_value() << std::endl;
         $$ = new op_expression(@1.begin.line, "+", last, $2);
         last = $$;
-        //std::cout << "operand -> PLUS variable: " << $$->get_value() << std::endl;
     }
 |
     MINUS variable
     {
-        //std::cout << "operand -> MINUS variable" << std::endl;
         $$ = new op_expression(@1.begin.line, "-", last, $2);
         last = $$;
     }
@@ -218,47 +193,40 @@ operand:
     {
         $$ = new op_expression(@1.begin.line, "*", last, $2);
         last = $$;
-        //std::cout << "operand -> MUL variable" << $$->get_value() << std::endl;
     }
 |
     DIV variable
     {
-        //std::cout << "operand -> DIV variable" << std::endl;
         $$ = new op_expression(@1.begin.line, "/", last, $2);
         last = $$;
     }
 |
     MOD variable
     {
-        //std::cout << "operand -> MOD variable" << std::endl;
         $$ = new op_expression(@1.begin.line, "%", last, $2);
         last = $$;
     }
 |
     EQUAL variable
     {
-        //std::cout << "operand -> EQUAL variable" << std::endl;
         $$ = new op_expression(@1.begin.line, "=", last, $2);
         last = $$;
     }
 |
     GREATER variable
     {
-        //std::cout << "operand -> GREATER variable" << std::endl;
         $$ = new op_expression(@1.begin.line, ">", last, $2);
         last = $$;
     }
 |
     OR variable
     {
-        //std::cout << "operand -> OR variable" << std::endl;
         $$ = new op_expression(@1.begin.line, "or", last, $2);
         last = $$;
     }
 |
     AND variable
     {
-        //std::cout << "operand -> AND variable" << std::endl;
         $$ = new op_expression(@1.begin.line, "and", last, $2);
         last = $$;
     }
@@ -288,6 +256,5 @@ variable:
     STRING
     {
         std::cout << "variable -> STRING" << std::endl;
-        //$$ = new string_expression($1);
     }
 ;

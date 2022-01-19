@@ -16,10 +16,6 @@ unsigned id_expression::get_value() const {
     return value_table[name];
 }
 
-/* unsigned func_expression::get_value() const {
-    return value->get_value();
-} */
-
 unsigned op_expression::get_value() const {
     int left_value = left->get_value();
     int right_value = right->get_value();
@@ -54,7 +50,6 @@ unsigned op_expression::get_value() const {
 
 void assign_instruction::execute() {
     value_table[left] = right->get_value();
-    std::cout << left << " = " << right->get_value() << std::endl;
 }
 
 void read_instruction::execute() {

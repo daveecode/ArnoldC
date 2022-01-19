@@ -87,19 +87,6 @@ class op_expression : public expression {
 
 extern expression* last;
 
-/*class not_expression : public expression {
-  public:
-    not_expression(int _line, std::string _op, expression* _operand);
-    ~not_expression();
-    type get_type() const;
-    std::string get_code() const;
-    unsigned get_value() const;    
-  private:
-    int line;
-    std::string op;
-    expression* operand;
-}; */
-
 class instruction {
   public:
     instruction(int _line);
@@ -111,22 +98,6 @@ class instruction {
   protected:
     int line;
 };
-
-/* class func_expression : public expression {
-  public:
-    func_expression(int _line, std::string _name, std::string _func_type, std::list<expression*>* _args, std::list<instruction*>* _body);
-    ~func_expression();
-    type get_type() const;
-    std::string get_code() const;
-    unsigned get_value() const;    
-  private:
-    int line;
-    std::string name;
-    std::list<expression*>* args;
-    std::list<instruction*>* body;
-    std::string func_type;
-    expression* value;
-}; */
 
 class assign_instruction : public instruction {
   public:
@@ -186,18 +157,6 @@ class while_instruction : public instruction {
     expression* condition;
     std::list<instruction*>* body;
 };
-
-/* class func_instruction : public instruction {
-  public:
-    func_instruction(int _line, std::list<expression*>* _args, std::list<instruction*>* _body);
-    ~func_instruction();
-    void type_check();
-    std::string get_code();
-    void execute();
-  private:
-    std::list<expression*>* args;
-    std::list<instruction*>* body;
-}; */
 
 void type_check_commands(std::list<instruction*>* commands);
 

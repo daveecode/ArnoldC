@@ -121,13 +121,6 @@ std::string op_expression::get_code() const {
     return ss.str();
 }
 
-/* std::string not_expression::get_code() const {
-    std::stringstream ss;
-    ss << operand->get_code();
-    ss << "xor al,1" << std::endl;
-    return ss.str();
-} */
-
 std::string assign_instruction::get_code() {
     std::stringstream ss;
     ss << right->get_code();

@@ -26,17 +26,6 @@ type id_expression::get_type() const {
     return symbol_table[name].symbol_type;
 }
 
-/* type func_expression::get_type() const {
-    if(symbol_table.count(name) == 0) {
-        error(line, std::string("Undefined function: ") + name);
-    }
-    if(func_type == "void") {
-        return none;
-    } else {
-        return natural;
-    }
-} */
-
 type operand_type(std::string op) {
     if(op == "+" || op == "-" || op == "*" || op == "/" || op == "%" ||
        op == "<" || op == ">" || op == "<=" || op == ">=") {
@@ -69,13 +58,6 @@ type op_expression::get_type() const {
     }
     return return_type(op);
 }
-
-/* type not_expression::get_type() const {
-    if(operand->get_type() != boolean) {
-        error(line, "Operand of 'not' is not boolean.");
-    }
-    return boolean;
-} */
 
 void assign_instruction::type_check() {
     if(symbol_table.count(left) == 0) {
